@@ -128,7 +128,6 @@ function App() {
       clearSelection()
       result.current = null
       popoverRef.current.dispose()
-      popoverRef.current= null
     }
 
     const noteBtn = document.createElement('button')
@@ -170,6 +169,7 @@ function App() {
       e.preventDefault()
       clearTimeout(timeoutId)
       const highlights = document.querySelectorAll(`[data-highlightid="${highlightId}"`)
+      console.log(e, highlights, highlightId)
       highlights.forEach(node => {
         const ct = node.closest('.character-text')
         const c = node.closest('.character')
@@ -188,7 +188,6 @@ function App() {
       container: 'body',
       content: btnGroup,
       html: true,
-      placement:'top'
     })
     return popover
   }
@@ -203,7 +202,6 @@ function App() {
     if (popoverRef.current?._isEnabled && !popoverGroup && !popoverBody) {
       clearSelection()
       popoverRef.current.dispose()
-      popoverRef.current = null
     }
   }
 
@@ -223,8 +221,7 @@ function App() {
 
   function onMouseOver(e) {
     if ('highlightid' in e.target.dataset
-      && removePopoverRef.current === null 
-      && popoverRef.current === null) {
+      && removePopoverRef.current === null) {
 
       const timeoutId = setTimeout(() => {
         removePopoverRef.current.dispose()
